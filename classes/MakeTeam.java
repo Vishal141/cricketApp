@@ -53,7 +53,7 @@ public class MakeTeam extends AppCompatActivity {
     public static String team_1_Name="Team 1";
     public static String team_2_Name="Team 2";
 
-    public int i=0,j=0;
+    public static int i=0,j=0;
 
     LayoutInflater li;
     View popUp;

@@ -61,7 +61,7 @@ public class MatchActivity extends AppCompatActivity {
         over1 = (TextView) findViewById(R.id.over1);
         over2 = (TextView) findViewById(R.id.over2);
 
-        setLayoutInitially();
+        setLayoutInitially("initial");
 
         Intent intent = getIntent();
         String from = intent.getStringExtra("code");
@@ -76,57 +76,59 @@ public class MatchActivity extends AppCompatActivity {
                 else {
                     if (from.equals("batsman selected"))
                         batsmanSelected();
+                    else{
+                        if (from.equals("scoreboard"))
+                            setLayoutInitially("scoreboard");
+                    }
                 }
             }
         }
 
     }
 
-    public void setLayoutInitially() {
-        matchName.setText(Global.matchName);
-        team1.setText(Global.team1);
-        team2.setText(Global.team2);
+    public void setLayoutInitially(String when) {
+        if (when.equals("initial"))
+        {
+            matchName.setText(Global.matchName);
+            team1.setText(Global.team1);
+            team2.setText(Global.team2);
 
-//        String score = run+"-"+wicket;
-//
-//        if (ball==6){
-//            over++;
-//            ball=0;
-//        }
-//        String O = over+"."+ball;
-
-        if (Global.inning == 1) {
-            if (Global.batting == 1) {
+            if (Global.inning == 1) {
+                if (Global.batting == 1) {
 //                Global.score1=score;
 //                Global.over1 = O;
-                score2.setText("Yet to");
-                over2.setText("bat");
-                score1.setText(Global.score1 + "");
-                over1.setText(Global.over1 + "");
-            } else {
+                    score2.setText("Yet to");
+                    over2.setText("bat");
+                    score1.setText(Global.score1 + "");
+                    over1.setText(Global.over1 + "");
+                } else {
 //                Global.score2 = score;
 //                Global.over2 = O;
-                score1.setText("Yet to");
-                over1.setText("bat");
-                score2.setText(Global.score2);
-                over2.setText(Global.over2 + "");
-            }
-        } else {
-            if (Global.batting == 2) {
+                    score1.setText("Yet to");
+                    over1.setText("bat");
+                    score2.setText(Global.score2);
+                    over2.setText(Global.over2 + "");
+                }
+            } else {
+                if (Global.batting == 2) {
 //                Global.score1=score;
 //                Global.over1 = O;
-                score1.setText(Global.score1);
-                over1.setText(Global.over1);
-                score2.setText(Global.score2 + "");
-                over2.setText(Global.over2 + "");
-            } else {
+                    score1.setText(Global.score1);
+                    over1.setText(Global.over1);
+                    score2.setText(Global.score2 + "");
+                    over2.setText(Global.over2 + "");
+                } else {
 //                Global.score2 = score;
 //                Global.over2 = O;
-                score2.setText(Global.score2 + "");
-                over2.setText(Global.over2 + "");
-                score1.setText(Global.score1);
-                over1.setText(Global.over1);
+                    score2.setText(Global.score2 + "");
+                    over2.setText(Global.over2 + "");
+                    score1.setText(Global.score1);
+                    over1.setText(Global.over1);
+                }
             }
+        }else{
+            reCopy();
+            tableLayout1.addView(Global.batrow2,2);
         }
     }
 
@@ -288,6 +290,8 @@ public class MatchActivity extends AppCompatActivity {
             else {
                 if (Global.batting == 1)
                     win(1);
+                else
+                    win(2);
             }
         } else {
             copyRows();
@@ -716,17 +720,10 @@ public class MatchActivity extends AppCompatActivity {
                         if (Global.inning == 1)
                             alertInning(1);
                         else {
-                            if (Global.batting == 1) {
-                                AlertDialog.Builder alert = new AlertDialog.Builder(context);
-                                alert.setTitle("Match finish");
-                                alert.setMessage(Global.team1 + " won the match");
-                                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                });
-                                alert.show();
-                            }
+                            if (Global.batting == 1)
+                                win(1);
+                            else
+                                win(2);
                         }
                     } else {
                         copyRows();
@@ -794,34 +791,16 @@ public class MatchActivity extends AppCompatActivity {
             alert.show();
         } else {
             if (Global.target < run) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.setTitle("Match finish");
                 if (Global.batting == 2)
-                    alert.setMessage(Global.team1 + " won the match");
+                    win(1);
                 else
-                    alert.setMessage(Global.team2 + " won the match");
-                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        gotoScoreBoard();
-                    }
-                });
-                alert.show();
+                    win(2);
             } else {
                 if (Global.target > run) {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                    alert.setTitle("Match finish");
                     if (Global.batting == 2)
-                        alert.setMessage(Global.team2 + " won the match");
+                       win(2);
                     else
-                        alert.setMessage(Global.team1 + " won the match");
-                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            gotoScoreBoard();
-                        }
-                    });
-                    alert.show();
+                        win(1);
                 } else {
                     AlertDialog.Builder alert = new AlertDialog.Builder(this);
                     alert.setTitle("Match finish");
@@ -852,25 +831,36 @@ public class MatchActivity extends AppCompatActivity {
     }
 
     public void win(int who) {
-        if (Global.batting == 1) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setTitle("Match finish");
-            if (who == 1)
-                alert.setMessage(Global.team1 + " won the match");
-            else
-                alert.setMessage(Global.team2 + " won the match");
-            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    gotoScoreBoard();
-                }
-            });
-            alert.show();
-        }
+        Global.win=who;
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Match finish");
+        if (who == 1)
+            alert.setMessage(Global.team1 + " won the match");
+        else
+            alert.setMessage(Global.team2 + " won the match");
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                gotoScoreBoard();
+            }
+        });
+        alert.show();
     }
 
     public void gotoScoreBoard(){
         Intent i = new Intent(context,ScoreBoard.class);
+        i.putExtra("code","finish");
+        tableLayout1.removeAllViews();
+        tableLayout2.removeAllViews();
+        startActivity(i);
+    }
+
+    public void scoreBoard(View view){
+        Intent i = new Intent(context,ScoreBoard.class);
+        i.putExtra("code","notFinish");
+        copyRows();
+        Global.batrow2 = (TableRow)tableLayout1.getChildAt(1);
+        tableLayout1.removeViewAt(1);
         startActivity(i);
     }
 }

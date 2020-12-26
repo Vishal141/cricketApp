@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cricketworld.MainActivity;
 import com.example.cricketworld.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class GalleryFragment extends Fragment {
 
@@ -33,11 +35,11 @@ public class GalleryFragment extends Fragment {
         galleryViewModel =
                 ViewModelProviders.of(this).get(GalleryViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        final TextView textView = root.findViewById(R.id.matchName1);
+       // final TextView textView = root.findViewById(R.id.matchName1);
         galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+             //   textView.setHint(s);
             }
         });
 
@@ -52,10 +54,13 @@ public class GalleryFragment extends Fragment {
 
                 if (match.getText()!=null && !match.getText().toString().equals(""))
                     matchName = match.getText().toString();
-                if (team1.getText()!=null && !match.getText().toString().equals(""))
+
+                if (team1.getText()!=null && !team1.getText().toString().equals(""))
                     team_1_Name = team1.getText().toString();
-                if (team2.getText()!=null && !match.getText().toString().equals(""))
+
+                if (team2.getText()!=null && !team2.getText().toString().equals(""))
                     team_2_Name = team2.getText().toString();
+
                 if (overs.getText().toString()!=null && overs.getText().toString()!="")
                     Overs = Integer.parseInt(overs.getText().toString());
 

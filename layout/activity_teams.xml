@@ -3,19 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/cup"
     android:layout_height="match_parent"
     tools:context=".ui.gallery.Teams">
 
     <TextView
         android:id="@+id/matchName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginLeft="144dp"
-        android:layout_marginTop="47dp"
+        android:layout_width="283dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="31dp"
+        android:gravity="center"
         android:text="Match Name"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#5E35B1"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/back"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -44,37 +47,43 @@
 
     <TextView
         android:id="@+id/team1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="86dp"
+        android:layout_width="143dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="11dp"
+        android:gravity="center"
         android:text="Team 1"
+        android:textColor="#5E35B1"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/matchName" />
 
     <TextView
         android:id="@+id/team2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginLeft="116dp"
-        android:layout_marginTop="84dp"
+        android:layout_width="153dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        android:gravity="center"
         android:text="Team 2"
+        android:textColor="#5E35B1"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/team1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="155dp"
+        android:layout_height="53dp"
         android:layout_marginEnd="18dp"
         android:layout_marginRight="18dp"
         android:layout_marginBottom="55dp"
+        android:background="#3D5AFE"
         android:onClick="start"
         android:text="start"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -87,7 +96,8 @@
         android:layout_marginLeft="7dp"
         android:layout_marginTop="46dp"
         android:text="batting"
-        android:textSize="18sp"
+        android:textColor="#5E35B1"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -105,12 +115,14 @@
             android:id="@+id/tButton_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#5E35B1"
             android:text="Team 1" />
 
         <RadioButton
             android:id="@+id/tButton_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#5E35B1"
             android:text="Team 2" />
     </RadioGroup>
 

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#424242"
-    >
+    android:background="@drawable/ground2">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,19 +15,20 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="24dp"
+            android:background="#858268"
+            android:gravity="center"
             android:text="Inning 2"
             android:textAlignment="center"
-            android:gravity="center"
-            android:textSize="18dp"
-            android:background="#858268"
             android:textColor="#FFFFFF"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView8" />
 
         <TextView
+            android:id="@+id/textView14"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="60dp"
             android:background="#651FFF"
             android:gravity="center"
             android:text="Score Board"
@@ -43,7 +42,7 @@
             android:id="@+id/textView10"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="20dp"
             android:background="#858268"
             android:gravity="center"
             android:text="Inning 1"
@@ -51,7 +50,7 @@
             android:textColor="#FFFFFF"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView7"
@@ -59,13 +58,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginLeft="1dp"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="60dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -151,13 +151,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginLeft="1dp"
-            android:layout_marginTop="39dp"
+            android:layout_marginTop="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView7">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -244,13 +245,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
             android:layout_marginLeft="1dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="60dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -331,17 +333,17 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView10"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="38dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView9"
-            android:layout_marginBottom="20dp"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/cardView9">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -421,6 +423,58 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="66dp"
+            android:layout_marginBottom="25dp"
+            android:background="#651FFF"
+            android:gravity="center"
+            android:text="Result"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView10" />
+
+        <Button
+            android:id="@+id/button21"
+            android:layout_width="68dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:onClick="backTomenu"
+            android:textColor="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/score1"
+            android:layout_width="142dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="21dp"
+            android:gravity="center"
+            android:text="Team: 0-0"
+            android:textColor="#d50000"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <TextView
+            android:id="@+id/score2"
+            android:layout_width="140dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Team: 0-0"
+            android:textColor="#d50000"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
