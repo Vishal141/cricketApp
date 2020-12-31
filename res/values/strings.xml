@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">CricketApp</string>
+    <string name="title_activity_chat">chatActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Log Out</string>
+    <string name="chatLabel">hello</string>
+
+    <string name="menu_home">Chat</string>
+    <string name="menu_gallery">Posts</string>
+    <string name="menu_slideshow">Add Friend</string>
+    <string name="menu_createMatch">Create Match</string>
+    <string name="menu_matchHistory">Match History</string>
+    <string name="menu_friendsMatch">Friend\'s Match</string>
+    <string name="menu_logout">Log Out</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_post">Add Post</string>
+</resources>
