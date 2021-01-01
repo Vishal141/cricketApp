@@ -115,6 +115,7 @@ public class register extends AppCompatActivity {
     public void gotoChatActivity(){
         Intent intent = new Intent(this,chatActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void saveEmailAndPassword(){

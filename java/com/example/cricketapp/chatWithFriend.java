@@ -112,7 +112,7 @@ public class chatWithFriend extends AppCompatActivity {
     }
 
     public String getTime(){
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Date date = new Date();
         String currentDate = format.format(date);
         return currentDate;

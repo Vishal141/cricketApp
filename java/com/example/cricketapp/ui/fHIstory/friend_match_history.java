@@ -112,6 +112,8 @@ public class friend_match_history extends Fragment {
         dref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                emails.clear();
+                matchKeys.clear();
                 for (DataSnapshot ds:snapshot.getChildren()){
                     for (DataSnapshot ds1:ds.getChildren()){
                         HashMap<String,String> map = (HashMap<String, String>)ds1.getValue();

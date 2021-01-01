@@ -64,7 +64,7 @@ public class chatActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,R.id.nav_fHistory,R.id.nav_history,R.id.nav_match)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -77,9 +77,9 @@ public class chatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String,String> map = (HashMap<String, String>)snapshot.getValue();
-                Picasso.with(getApplicationContext()).load(map.get("imageUrl")).into(((ImageView)findViewById(R.id.imageView)));
                 ((TextView)findViewById(R.id.name)).setText(map.get("name"));
                 ((TextView)findViewById(R.id.email)).setText(map.get("email"));
+                Picasso.with(getApplicationContext()).load(map.get("imageUrl")).into(((ImageView)findViewById(R.id.imageView)));
             }
 
             @Override
@@ -119,5 +119,7 @@ public class chatActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),profile.class);
         startActivity(intent);
     }
+
+    
 
 }

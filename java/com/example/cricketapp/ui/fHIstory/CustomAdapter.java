@@ -50,6 +50,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                 intent.putExtra("url",holder.url);
                 intent.putExtra("email",emails.get(position));
                 intent.putExtra("key",matchKeys.get(position));
+                intent.putExtra("commentUrl",holder.commentUrl);
                 context.startActivity(intent);
             }
         });
@@ -64,7 +65,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         TextView team1,team2,score1,score2,over1,over2,bt1,bt2,bl1,bl2,result;
         View view;
-        String url;
+        String url,commentUrl;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,6 +103,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                     result.setVisibility(View.INVISIBLE);
 
                     url = map.get("scoreboard");
+                    commentUrl = map.get("CommentUrl");
                 }
 
                 @Override

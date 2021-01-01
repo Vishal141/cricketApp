@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cricketapp.R;
+import com.example.cricketapp.chatActivity;
 import com.example.cricketapp.register;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -69,12 +70,14 @@ public class post extends AppCompatActivity {
 
     public void send(View view){
         EditText comment = findViewById(R.id.comment);
+        Toast.makeText(getApplicationContext(),"Sending",Toast.LENGTH_LONG).show();
         if (comment.getText()!=null && !comment.getText().toString().equals("")){
             final String com = comment.getText().toString();
             final String id = UUID.randomUUID().toString();
             sref.child(id).putFile(url).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    System.out.println("sending");
                     sref.child(id).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
@@ -93,6 +96,9 @@ public class post extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                     Toast.makeText(getApplicationContext(),"Post added",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), chatActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             });
         }else{

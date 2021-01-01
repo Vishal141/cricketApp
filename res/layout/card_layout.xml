@@ -23,14 +23,17 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="80dp"
+                android:paddingLeft="10dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
-                app:cardCornerRadius="30dp">
+                app:cardCornerRadius="10dp">
 
                 <ImageView
                     android:id="@+id/profile_picture"
+                    android:padding="5dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="60dp"
                     android:src="@drawable/player_icon" />
 
             </androidx.cardview.widget.CardView>

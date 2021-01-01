@@ -59,7 +59,7 @@ public class login extends AppCompatActivity {
         Boolean logout = intent.getBooleanExtra("logout",false);
 
         if (logout.booleanValue())
-            sp.edit().putString("code","notNow");
+            sp.edit().putString("code","notNow").apply();
 
         String code = sp.getString("code","notNow");
         System.out.println(code);
@@ -168,6 +168,7 @@ public class login extends AppCompatActivity {
     public void gotoChatActivity(){
         Intent intent = new Intent(this,chatActivity.class);
         startActivity(intent);
+        finish();
     }
 
 

@@ -29,7 +29,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="650dp"
+        android:layout_marginBottom="50dp"
         app:cardCornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -41,8 +43,8 @@
             <EditText
                 android:id="@+id/msg"
                 android:layout_width="330dp"
-                android:hint="type here"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:hint="type here" />
 
             <Button
                 android:layout_width="match_parent"
