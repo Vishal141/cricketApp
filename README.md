@@ -12,8 +12,15 @@
  
  ********************************************************************************************
  
-  # The main purpose of making this app is to facilitate scoring of a cricket match 
-  # and share live scores of match with the user's friend so that they can also enjoy 
-  # the match by making comments and chating with friends with the live scores of match.
+   The main purpose of making this app is to facilitate the scoring of a cricket match 
+   and share live scores of match with the user's friend so that they can also enjoy 
+   the match by making comments and chating with friends with the live scores of match.
    
-   *********************************************************************************************
+   **********************************************************************************************
+   
+   
+   # Technologies used.
+   
+   1. java.
+   2. Android Studio.
+   3. Firebase .
