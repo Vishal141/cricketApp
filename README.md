@@ -4,7 +4,7 @@
 
  1. It is a basic app where you can manage scoring of a cricket match.
  2. Here you can make friends and chat with them.
- 3. Here you can see live scores of matches created by your friends and also make comment of them which are anyone can see.
+ 3. Here you can see live scores of matches created by your friends and also make comment on them and enjoy the match.
  4. You can see your match history with scoreboard and also comments on that match.
  5. You can send pictures or any post in post section .
  6. Post shared by you are public any user can see them.
