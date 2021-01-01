@@ -19,8 +19,21 @@
    **********************************************************************************************
    
    
-   # Technologies used.
-   
-   1. java.
-   2. Android Studio.
-   3. Firebase .
+   # Topics explored.
+   1. Java.
+     1.1 . Integrating project with firebase.
+     1.2 . Making custom adapter for recycler view.
+     1.3 . Use of intents and global classes.
+     
+   2. XML.
+     2.1 . ConstraintLayout.
+     2.2 . LinearLayout.
+     2.3 . RelativeLayout.
+     2.4 . CardViews.
+     2.5 . RecyclerViews.
+     2.6 . Transition in splash screen.
+     
+     
+  # Technologies used.
+    1. Android studio.
+    2. Firebase.
