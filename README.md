@@ -40,3 +40,5 @@
     
   # Screenshots.
  ![Screenshot_2021-01-01-21-45-56-094_com example cricketapp](https://user-images.githubusercontent.com/68137797/103443766-61806600-4c88-11eb-993b-56ec5375fa62.jpg)
+ ![Screenshot_2021-01-01-21-46-04-007_com example cricketapp](https://user-images.githubusercontent.com/68137797/103443800-955b8b80-4c88-11eb-9b76-bb2e63ca51d9.jpg)
+ ![Screenshot_2021-01-01-21-44-37-423_com example cricketapp](https://user-images.githubusercontent.com/68137797/103443861-f4210500-4c88-11eb-82c9-8fec47aaee27.jpg)
