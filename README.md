@@ -38,4 +38,6 @@
     1. Android studio.
     2. Firebase.
     
-   ![image](https://cloud.githubusercontent.com/assets/9053854/24495974/fbf2e0cc-1547-11e7-846c-25b5fac7f6b1.png) 
+  # Screenshots.
+  
+  ![Screenshot_2021-01-01-21-45-56-094_com example cricketapp](https://user-images.githubusercontent.com/68137797/103443731-15352600-4c88-11eb-8a4d-2b464171786a.jpg)
