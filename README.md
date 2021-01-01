@@ -39,5 +39,4 @@
     2. Firebase.
     
   # Screenshots.
-  
-  ![Screenshot_2021-01-01-21-45-56-094_com example cricketapp](https://user-images.githubusercontent.com/68137797/103443731-15352600-4c88-11eb-8a4d-2b464171786a.jpg)
+ ![Screenshot_2021-01-01-21-45-56-094_com example cricketapp](https://user-images.githubusercontent.com/68137797/103443766-61806600-4c88-11eb-993b-56ec5375fa62.jpg)
