@@ -1,4 +1,7 @@
 # cricketApp
+
+
+
  1. It is a basic app where you can manage scoring of a cricket match.
  2. Here you can make friends and chat with them.
  3. Here you can see live scores of matches created by your friends and also make comment of them which are anyone can see.
@@ -9,8 +12,8 @@
  
  ********************************************************************************************
  
-   The main purpose of making this app is to facilitate scoring of a cricket match 
-   and show live scores of match with the user's friend so that they can also enjoy 
-   the match by making comments and chating with friends with the live scores of match.
+  # The main purpose of making this app is to facilitate scoring of a cricket match 
+  # and share live scores of match with the user's friend so that they can also enjoy 
+  # the match by making comments and chating with friends with the live scores of match.
    
    *********************************************************************************************
