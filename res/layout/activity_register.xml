@@ -68,26 +68,18 @@
                 android:hint="password"
                 android:inputType="textPassword" />
 
-            <androidx.cardview.widget.CardView
+            <Button
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="25dp"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:onClick="signUp"
+                android:text="Sign up"
                 android:layout_marginTop="35dp"
+                android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:background="#462393"
-                app:cardCornerRadius="30dp">
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="18dp"
-                    android:onClick="signUp"
-                    android:text="Sign up"
-                    android:background="#4807D8"
-                    android:textColor="#fff"
-                    />
-
-            </androidx.cardview.widget.CardView>
+                android:background="@drawable/login_btn_bg"
+                android:textColor="#fff"
+                />
 
         </LinearLayout>
 

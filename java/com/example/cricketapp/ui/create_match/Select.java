@@ -35,7 +35,7 @@ public class Select extends AppCompatActivity {
         Intent i = getIntent();
         String from = i.getStringExtra("from");
 
-        TextView select = (TextView)findViewById(R.id.select);
+        //TextView select = (TextView)findViewById(R.id.select);
         final TextView p = (TextView)findViewById(R.id.textView8);
         TextView n = (TextView)findViewById(R.id.textView9);
 
@@ -51,9 +51,10 @@ public class Select extends AppCompatActivity {
         ArrayAdapter<String> New;
 
         if (from.equals("Teams")) {
-            select.setText("Select Openers");
-            p.setVisibility(View.INVISIBLE);
-            previosList.setVisibility(View.INVISIBLE);
+//            select.setText("Select Openers");
+            setTitle("Select Openers");
+            p.setVisibility(View.GONE);
+            previosList.setVisibility(View.GONE);
             if (Global.inning==1)
             {
                 if (Global.batting==1)
@@ -83,6 +84,7 @@ public class Select extends AppCompatActivity {
                         Intent intent = new Intent(context,Select.class);
                         intent.putExtra("from","firstBowler");
                         startActivity(intent);
+                        finish();
                     }
                 }
             });
@@ -91,9 +93,10 @@ public class Select extends AppCompatActivity {
         {
             if (from.equals("firstBowler"))
             {
-                select.setText("Select first bowler");
-                p.setVisibility(View.INVISIBLE);
-                previosList.setVisibility(View.INVISIBLE);
+                //select.setText("Select first bowler");
+                setTitle("Select first bowler");
+                p.setVisibility(View.GONE);
+                previosList.setVisibility(View.GONE);
 
                 if (Global.inning==1)
                 {
@@ -118,6 +121,7 @@ public class Select extends AppCompatActivity {
                         intent.putExtra("code","opners selected");
                        // initMatch();
                         startActivity(intent);
+                        finish();
                     }
                 });
             }
@@ -126,9 +130,10 @@ public class Select extends AppCompatActivity {
                 String type = i.getStringExtra("type");
                 if (type.equals("batsman"))
                 {
-                    select.setText("Select a new batsman");
-                    p.setVisibility(View.INVISIBLE);
-                    previosList.setVisibility(View.INVISIBLE);
+                    //select.setText("Select a new batsman");
+                    setTitle("Select a new batsman");
+                    p.setVisibility(View.GONE);
+                    previosList.setVisibility(View.GONE);
 
                     if (Global.inning==1)
                     {
@@ -164,12 +169,14 @@ public class Select extends AppCompatActivity {
                             Intent intent = new Intent(context,MatchActivity.class);
                             intent.putExtra("code","batsman selected");
                             startActivity(intent);
+                            finish();
                         }
                     });
                 }
                 else
                 {
-                    select.setText("select a bowler");
+                    //select.setText("select a bowler");
+                    setTitle("Select a bowler");
                     p.setVisibility(View.VISIBLE);
                     previosList.setVisibility(View.VISIBLE);
                     if (Global.inning==1)
@@ -211,6 +218,7 @@ public class Select extends AppCompatActivity {
                             Intent intent = new Intent(context,MatchActivity.class);
                             intent.putExtra("code","new bowler selected");
                             startActivity(intent);
+                            finish();
                         }
                     });
                     previosList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -220,6 +228,7 @@ public class Select extends AppCompatActivity {
                             Intent intent = new Intent(context,MatchActivity.class);
                             intent.putExtra("code","previos bowler selected");
                             startActivity(intent);
+                            finish();
                         }
                     });
                 }

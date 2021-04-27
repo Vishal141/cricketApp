@@ -64,7 +64,7 @@ public class Scoreboard extends AppCompatActivity {
     EditText comment;
 
     TableLayout tableLayout1,tableLayout2;
-    TextView team1,team2,score1,score2,over1,over2,bt1,bt2,bl1,result;
+    TextView team1,team2,score1,score2,over1,over2,bt1,bt2,bl1,result,title;
 
     private String url,commentUrl;
     private File file,commentFile;
@@ -96,6 +96,7 @@ public class Scoreboard extends AppCompatActivity {
         bt2 = findViewById(R.id.bt2);
         bl1 = findViewById(R.id.bl1);
         result =findViewById(R.id.status);
+        title = findViewById(R.id.title);
 
         comment = findViewById(R.id.comment);
 
@@ -324,6 +325,7 @@ public class Scoreboard extends AppCompatActivity {
                 HashMap<String,String> map = (HashMap<String, String>)snapshot.getValue();
                 team1.setText(map.get("team 1"));
                 team2.setText(map.get("team 2"));
+                title.setText(team1.getText().toString()+" Vs "+team2.getText().toString());
                 score1.setText(map.get("score1"));
                 score2.setText(map.get("score2"));
                 over1.setText(map.get("over1"));
@@ -332,12 +334,12 @@ public class Scoreboard extends AppCompatActivity {
                 {   bt1.setText(map.get("current bat 1"));
                     bt2.setText(map.get("current bat 2"));
                     bl1.setText(map.get("current bowl 1"));
-                    result.setVisibility(View.INVISIBLE);
+                    result.setVisibility(View.GONE);
                 }else
                 {
-                    bt1.setVisibility(View.INVISIBLE);
-                    bt2.setVisibility(View.INVISIBLE);
-                    bl1.setVisibility(View.INVISIBLE);
+                    bt1.setVisibility(View.GONE);
+                    bt2.setVisibility(View.GONE);
+                    bl1.setVisibility(View.GONE);
                     result.setText(map.get("status"));
                 }
             }
@@ -443,5 +445,7 @@ public class Scoreboard extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        comment.setText("");
     }
 }

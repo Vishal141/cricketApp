@@ -48,15 +48,20 @@ import java.util.Date;
 
 public class MatchActivity extends AppCompatActivity {
 
+    //layout variables
     private TableLayout tableLayout1, tableLayout2;
     private LinearLayout ll;
     private View outLayout;
     private CheckBox rotate, strikeOrNot;
     private LayoutInflater li;
+
     private static int Strick = 1, nonStrick = 2, bowler = 0;
     private static int run = 0, wicket = 0, over = 0, ball = 0, ballOver = 0;
     private int overWicket = 0, overRun = 0;
 
+    private static boolean isOverFinish = false;
+
+    //firebase variables
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseUser user;
@@ -97,6 +102,7 @@ public class MatchActivity extends AppCompatActivity {
         over1 = (TextView) findViewById(R.id.over1);
         over2 = (TextView) findViewById(R.id.over2);
 
+        //Initialize firebase variables
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -108,6 +114,7 @@ public class MatchActivity extends AppCompatActivity {
 
         setLayoutInitially("initial");
 
+        //Handling intent from activities
         Intent intent = getIntent();
         String from = intent.getStringExtra("code");
         if (from.equals("opners selected"))
@@ -129,8 +136,14 @@ public class MatchActivity extends AppCompatActivity {
             }
         }
 
+        if (isOverFinish){
+            changeOver();
+            isOverFinish = false;
+        }
+
     }
 
+    //function to setLayout initially
     public void setLayoutInitially(String when) {
         if (when.equals("initial"))
         {
@@ -177,6 +190,7 @@ public class MatchActivity extends AppCompatActivity {
         }
     }
 
+    //Initialize match in firebase database
     public void initMatch(String bt1,String bt2,String bl1,String bl2,String when){
         dref.child(register.getMd5(user.getEmail())).child(Global.matchKey).
                 child("status").setValue("running");
@@ -218,6 +232,7 @@ public class MatchActivity extends AppCompatActivity {
         }
     }
 
+    //set layout after each ball
     public void setLayout() {
         matchName.setText(Global.matchName);
         team1.setText(Global.team1);
@@ -266,6 +281,7 @@ public class MatchActivity extends AppCompatActivity {
         }
     }
 
+    //creating textview for this over layout
     public TextView newTextview(String text) {
         newBall = new TextView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -280,6 +296,7 @@ public class MatchActivity extends AppCompatActivity {
         return newBall;
     }
 
+    //creating Table Row to add in table layout
     public TableRow addRow(String Name, TableLayout tableLayout, int index) {
         TableRow row = new TableRow(this);
         row.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
@@ -327,15 +344,20 @@ public class MatchActivity extends AppCompatActivity {
         return row;
     }
 
+    //swap the strick
     public void swap() {
         int temp = Strick;
         Strick = nonStrick;
         nonStrick = temp;
     }
 
+    // handle out event for different cases
     public void Out(View view) {
         Button button = (Button) view;
         String text = button.getText().toString();
+        if(ballOver==5)
+            isOverFinish = true;
+        System.out.println(isOverFinish);
         wicket++;
         switch (text) {
             case "catch":
@@ -356,6 +378,7 @@ public class MatchActivity extends AppCompatActivity {
         }
     }
 
+    //lbw and bold event
     public void lbwOrBold(String type) {
         overWicket++;
         ball++;
@@ -390,9 +413,14 @@ public class MatchActivity extends AppCompatActivity {
         } else {
             copyRows();
             selectBatsman();
+//            if(isOverFinish){
+//                changeOver();
+//                isOverFinish = false;
+//            }
         }
     }
 
+    //copy rows for retrieving after back
     public void copyRows() {
         Global.batrow1 = (TableRow) tableLayout1.getChildAt(1);
         Global.ballrow = (TableRow) tableLayout2.getChildAt(1);
@@ -406,6 +434,7 @@ public class MatchActivity extends AppCompatActivity {
         tableLayout2.removeViewAt(1);
     }
 
+    //selecting batsman after out
     public void selectBatsman() {
         Intent i = new Intent(this, Select.class);
         i.putExtra("from", "match");
@@ -413,6 +442,7 @@ public class MatchActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    //setting layout after batsman selected
     public void batsmanSelected() {
         String name;
         reCopy();
@@ -426,9 +456,9 @@ public class MatchActivity extends AppCompatActivity {
             Global.battingRowsTeam2.add(row);
         }
         initMatch(name+": 0/0","","","",update);
-
     }
 
+    //copy rows after back
     public void reCopy() {
         tableLayout1.addView(Global.batrow1);
         tableLayout2.addView(Global.ballrow);
@@ -441,7 +471,7 @@ public class MatchActivity extends AppCompatActivity {
 
     }
 
-
+    //handling lag bie event
     public void lb(View view) {
         Button button = (Button) view;
         String text = button.getText().toString();
@@ -491,6 +521,7 @@ public class MatchActivity extends AppCompatActivity {
             changeOver();
     }
 
+    //handling score event
     public void increaseScore(View view) {
         Button button = (Button) view;
         String r = button.getText().toString();
@@ -513,6 +544,7 @@ public class MatchActivity extends AppCompatActivity {
         }
     }
 
+    //event after over finish
     public void changeOver() {
         swap();
         ll.removeAllViews();
@@ -530,7 +562,7 @@ public class MatchActivity extends AppCompatActivity {
                 alertInning(2);
             }
         }
-        if (!checkInning()) {
+        if (!checkInning()) {                                          //checking for inning after over finish
             Intent i = new Intent(this, Select.class);
             i.putExtra("from", "selectBowler");
             i.putExtra("type", "bowler");
@@ -538,6 +570,7 @@ public class MatchActivity extends AppCompatActivity {
         }
     }
 
+    //wide event
     public void wide(View view) {
         TextView Wide = (TextView) view;
         String text = Wide.getText().toString();
@@ -575,13 +608,14 @@ public class MatchActivity extends AppCompatActivity {
                 updateBowlingTable(5);
                 break;
         }
-        int result = checkForWin();
+        int result = checkForWin();   //check for win in second inning
         if (result == 1)
             win(1);
         if (result == 2)
             win(2);
     }
 
+    //No Ball event
     public void noBall(View view) {
         TextView NoBall = (TextView) view;
         String text = NoBall.getText().toString();
@@ -631,13 +665,14 @@ public class MatchActivity extends AppCompatActivity {
                 updateBattingTable(6);
                 break;
         }
-        int result = checkForWin();
+        int result = checkForWin(); //check for win
         if (result == 1)
             win(1);
         if (result == 2)
             win(2);
     }
 
+    //handling event after openers selected
     public void openers() {
         String bt1,bt2,bl1;
         if (Global.inning == 1) {
@@ -645,12 +680,12 @@ public class MatchActivity extends AppCompatActivity {
             Global.currentUserEmail = user.getEmail();
             Global.matchKey = d+" "+Global.team1+" Vs "+Global.team2;
             FILE = initFile();
-            putFile(FILE);
-            putCommentFile();
+            putFile(FILE);     //putting empty file in database
+            putCommentFile();  //putting empty file for comment in database
             if (Global.batting == 1) {
                 bt1 = Global.team_1_players.get(Global.op1);
                 bt2 = Global.team_1_players.get(Global.op2);
-                bl1 = Global.team_2_players.get(Global.New);
+                bl1 = Global.team_2_players.get(Global.New);                        // setting batting and bowling layout
                 TableRow op1 = addRow(bt1, tableLayout1, 1);
                 TableRow op2 = addRow(bt2, tableLayout1, 2);
                 TableRow bow = addRow(bl1, tableLayout2, 1);
@@ -701,6 +736,7 @@ public class MatchActivity extends AppCompatActivity {
         }
     }
 
+    // handling update in batting table like increasing batsman's score
     public void updateBattingTable(int r) {
         TableRow row = (TableRow) tableLayout1.getChildAt(Strick);
         TextView batN = (TextView)row.getChildAt(0);
@@ -726,7 +762,7 @@ public class MatchActivity extends AppCompatActivity {
         batB.setText(batsmanBall + "");
         batF.setText(batsmanFour + "");
         batS.setText(batsmanSix + "");
-        batSR.setText(batsmanSR + "");
+        batSR.setText(String.format("%.2f",batsmanSR));
 
         String bt = batN.getText().toString()+": "+batsmanRun+"/"+batsmanBall;
         if (Strick==1)
@@ -736,6 +772,7 @@ public class MatchActivity extends AppCompatActivity {
         uploadFile();
     }
 
+    //handle updates in bowling table like ball or wicket
     public void updateBowlingTable(int r) {
         TableRow row = (TableRow) tableLayout2.getChildAt(1);
         TextView bowN = (TextView) row.getChildAt(0);
@@ -751,24 +788,28 @@ public class MatchActivity extends AppCompatActivity {
         int w = Integer.parseInt(bowW.getText().toString());
         float eco = Float.parseFloat(bowEco.getText().toString());
         String O;
+        int numBall;
         if (ballOver == 6) {
             int Ov = (int) o;
             ++Ov;
             O = Ov + "";
-            o = Float.parseFloat(O);
+           // o = Float.parseFloat(O);
             ballOver = 0;
             if (overRun == 0)
                 M += 1;
+            numBall = Ov*6 + ballOver;
         } else {
             int Ov = (int) o;
             O = Ov + "." + ballOver;
-            o = Float.parseFloat(O);
+           // o = Float.parseFloat(O);
+            numBall = Ov*6 + ballOver;
         }
         R += r;
         w += overWicket;
-        eco = (float) R / o;
 
-        bowEco.setText(eco + "");
+        eco = (float) (R*6)/ numBall;
+
+        bowEco.setText(String.format("%.2f",eco));
         bowO.setText(O);
         bowM.setText(M + "");
         bowR.setText(R + "");
@@ -779,8 +820,9 @@ public class MatchActivity extends AppCompatActivity {
         uploadFile();
     }
 
+    //handling event after bowler selected for over
     public void BowlerSelected(String type) {
-        if (type.equals("new")) {
+        if (type.equals("new")) {                   //if new bowler selected
             if (Global.selectedFrom == 1) {
                 TableRow row = addRow(Global.team_1_players.get(Global.New), tableLayout2, 1);
                 Global.bowlingRowsTeam1.add(row);
@@ -790,7 +832,7 @@ public class MatchActivity extends AppCompatActivity {
                 Global.bowlingRowsTeam2.add(row);
                 Global.bowlersTeam2.add(Global.team_2_players.get(Global.New));
             }
-        } else {
+        } else {                                      //if previos bowler selected
             if (Global.selectedFrom == 1) {
                 TableRow row = Global.bowlingRowsTeam1.get(Global.prev);
                 tableLayout2.addView(row, 1);
@@ -803,6 +845,7 @@ public class MatchActivity extends AppCompatActivity {
         tableLayout1.addView(Global.batrow2, 2);
     }
 
+    //event for catch out
     public void catchOut(final String type) {
         TableRow row = (TableRow) tableLayout1.getChildAt(Strick);
         TableRow row1 = (TableRow) tableLayout2.getChildAt(1);
@@ -862,11 +905,11 @@ public class MatchActivity extends AppCompatActivity {
                             name.setText(name.getText().toString() + "\n" + "run out " + Name.getText().toString());
                     }
                     tableLayout1.removeViewAt(Strick);
-                    if (wicket == Global.team_1_players.size() - 1) {
+                    if (wicket == Global.team_1_players.size() - 1) {    //checking for all out
                         if (Global.inning == 1)
                             alertInning(1);
                         else {
-                           if (Global.target==run)
+                           if (Global.target==run)              //checking for run chase
                                win(-1);
                            else {
                                if (Global.batting == 1)
@@ -906,17 +949,10 @@ public class MatchActivity extends AppCompatActivity {
     }
 
     public boolean checkInning() {
-//        if (Global.currentBat == 1) {
-////            if (Global.totalOvers == over)
-////                return true;
-////        } else {
-////            if (Global.totalOvers == over)
-////                return true;
-////        }
-////        return false;
         return (Global.totalOvers==over);
     }
 
+    //alerting after inning finished or match over
     public void alertInning(int inning) {
         if (inning == 1) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -953,22 +989,13 @@ public class MatchActivity extends AppCompatActivity {
                     else
                         win(1);
                 } else {
-//                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
-//                    alert.setTitle("Match finish");
-//                    alert.setMessage("Match Tied");
-//                    alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            gotoScoreBoard();
-//                        }
-//                    });
-//                    alert.show();
                     win(-1);
                 }
             }
         }
     }
 
+    //checking for win
     public int checkForWin() {
         if (Global.inning==2)
         {
@@ -982,6 +1009,7 @@ public class MatchActivity extends AppCompatActivity {
         return -1;
     }
 
+    //finish match and goto scoreboard
     public void win(int who) {
         Global.win=who;
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -989,7 +1017,7 @@ public class MatchActivity extends AppCompatActivity {
         if (who == 1)
         {
             dref.child(register.getMd5(user.getEmail())).child(Global.matchKey).
-                    child("status").setValue(Global.team1+" won the match");
+                    child("status").setValue(Global.team1+" won the match");           //change status of match in database
             alert.setMessage(Global.team1 + " won the match");
         }
         else
@@ -1019,10 +1047,11 @@ public class MatchActivity extends AppCompatActivity {
         alert.show();
     }
 
+    //go to scoreboard activity after match or clicking of scoreboard
     public void gotoScoreBoard(){
         Intent i = new Intent(context,ScoreBoard.class);
         i.putExtra("code","finish");
-        tableLayout1.removeAllViews();
+        tableLayout1.removeAllViews();                     //removing views such that we add it's child in scoreboard
         tableLayout2.removeAllViews();
         startActivity(i);
         finish();
@@ -1037,6 +1066,7 @@ public class MatchActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    // adding each row of table in file
     public void setFromRow(TableRow row,String text,BufferedWriter writer){
         TextView name = (TextView)row.getChildAt(0);
         TextView run = (TextView)row.getChildAt(1);
@@ -1045,32 +1075,17 @@ public class MatchActivity extends AppCompatActivity {
         TextView six = (TextView)row.getChildAt(4);
         TextView sr = (TextView)row.getChildAt(5);
 
-        text = text+name.getText().toString()+"-*-"+run.getText().toString()+"-*-"+ball.getText().toString()+
+        text = text+name.getText().toString()+"-*-"+run.getText().toString()+"-*-"+ball.getText().toString()+             //creating line for file
                         "-*-"+four.getText().toString()+"-*-"+six.getText().toString()+"-*-"+sr.getText().toString()+"-*-"+"\n";
 
         try {
-            writer.append(text);
+            writer.append(text);     // appending line in file
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-//    public void getFile(){
-//        dref.child(register.getMd5(user.getEmail())).child(Global.matchKey).
-//                addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                HashMap<String ,String > map = (HashMap<String, String>)snapshot.getValue();
-//                System.out.println(map.get("scoreboard"));
-//                FILE1 = new File(map.get("scoreboard"));
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
-
+    //putting file in database after updating it's lines
     public void putFile(File file){
         Uri uri = Uri.parse(file.toURI().toString());
         final String path = register.getMd5(Global.currentUserEmail)+Global.matchKey.replaceAll(" ","");
@@ -1101,6 +1116,7 @@ public class MatchActivity extends AppCompatActivity {
         });
     }
 
+    //initialize file in database
     public File initFile(){
         File file=null;
         try {
@@ -1118,6 +1134,7 @@ public class MatchActivity extends AppCompatActivity {
         return file;
     }
 
+    //write in file
     public void writeInFile(){
         BufferedWriter writer=null;
         try {
@@ -1129,9 +1146,9 @@ public class MatchActivity extends AppCompatActivity {
         if (Global.batting==1)
         {
             addStar(writer);
-            for (TableRow row:Global.battingRowsTeam1)
+            for (TableRow row:Global.battingRowsTeam1)        //adding line from table
                 setFromRow(row,"",writer);
-            addStar(writer);
+            addStar(writer);                                  //adding starts for separating line in file
             for (TableRow row:Global.bowlingRowsTeam2)
                 setFromRow(row,"",writer);
             addStar(writer);
@@ -1166,6 +1183,7 @@ public class MatchActivity extends AppCompatActivity {
         }
     }
 
+    //function that add stars in file
     public void addStar(BufferedWriter writer){
         try {
             writer.append("**********************************\n");
@@ -1180,10 +1198,11 @@ public class MatchActivity extends AppCompatActivity {
         putFile(FILE);
     }
 
+   //putting comment file so user can comment on match
     public void putCommentFile(){
         final String path = register.getMd5(Global.currentUserEmail)+Global.matchKey.replaceAll(" ","");
         try {
-            File file = File.createTempFile("comment",".txt");
+            File file = File.createTempFile("comment",".txt");    //creating temp file for putting
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.append("***************************************************");
             writer.flush();

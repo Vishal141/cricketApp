@@ -1,6 +1,7 @@
 package com.example.cricketapp;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.circularreveal.CircularRevealLinearLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -34,6 +36,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.HashMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class chatActivity extends AppCompatActivity {
 
     private FirebaseUser user;
@@ -50,15 +54,9 @@ public class chatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
-//        //FloatingActionButton fab = findViewById(R.id.fab);
-//       // fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -77,9 +75,16 @@ public class chatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String,String> map = (HashMap<String, String>)snapshot.getValue();
+                System.out.println(map);
                 ((TextView)findViewById(R.id.name)).setText(map.get("name"));
                 ((TextView)findViewById(R.id.email)).setText(map.get("email"));
-                Picasso.with(getApplicationContext()).load(map.get("imageUrl")).into(((ImageView)findViewById(R.id.imageView)));
+                Picasso.with(getApplicationContext()).load(map.get("imageUrl")).into((CircleImageView)findViewById(R.id.imageView));
+                ((CircleImageView)findViewById(R.id.imageView)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gotoProfile(v);
+                    }
+                });
             }
 
             @Override
@@ -114,12 +119,8 @@ public class chatActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-
     public void gotoProfile(View view) {
         Intent intent = new Intent(getApplicationContext(),profile.class);
         startActivity(intent);
     }
-
-    
-
 }

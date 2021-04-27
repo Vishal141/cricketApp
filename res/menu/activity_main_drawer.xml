@@ -26,11 +26,7 @@
             android:title="@string/menu_matchHistory" />
         <item
             android:id="@+id/nav_fHistory"
-            android:icon="@drawable/match_icon"
+            android:icon="@drawable/ic_cricket"
             android:title="@string/menu_friendsMatch" />
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/logout_icon"
-            android:title="@string/menu_logout" />
     </group>
 </menu>

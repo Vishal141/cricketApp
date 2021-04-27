@@ -34,8 +34,6 @@ public class login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
-    private SharedPreferences sp;
-
     EditText email,password;
     CardView cardView;
     TextView heading;
@@ -50,30 +48,11 @@ public class login extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        sp = getSharedPreferences("com.example.cricketapp", Context.MODE_PRIVATE);
-
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
 
         Intent intent = getIntent();
         Boolean logout = intent.getBooleanExtra("logout",false);
-
-        if (logout.booleanValue())
-            sp.edit().putString("code","notNow").apply();
-
-        String code = sp.getString("code","notNow");
-        System.out.println(code);
-        if (code.equals("save"))
-        {
-            String em = sp.getString("email","a@gmail.com");
-            String ps = sp.getString("password","*@");
-
-            email.setText(em);
-            password.setText(ps);
-
-           // signIn(new View(this));
-            gotoChatActivity();
-        }
 
     }
 
@@ -100,12 +79,7 @@ public class login extends AppCompatActivity {
                        public void onComplete(@NonNull Task<AuthResult> task) {
                            if (task.isSuccessful()){
                                Toast.makeText(getApplicationContext(),"signIn successful",Toast.LENGTH_LONG).show();
-                               String code = sp.getString("code","notNow");
-                               if (code.equals("notNow"))
-                                   saveAlert();
-                               else{
-                                   gotoChatActivity();
-                               }
+                               gotoChatActivity();
                            }
                        }
                    })
@@ -113,13 +87,11 @@ public class login extends AppCompatActivity {
                        @Override
                        public void onFailure(@NonNull Exception e) {
                            Toast.makeText(getApplicationContext(),e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-                           view.setBackgroundColor(Color.parseColor("#4807D8"));
                        }
                    });
        }else {
            Toast.makeText(this,"all fields are mandatory",Toast.LENGTH_LONG).show();
        }
-       view.setBackgroundColor(Color.GREEN);
     }
 
     public void signUp(final View view){
@@ -130,39 +102,6 @@ public class login extends AppCompatActivity {
 
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,pairs);
         startActivity(intent,options.toBundle());
-    }
-
-    public void saveEmailAndPassword(){
-        sp.edit().putString("code","save").apply();
-        sp.edit().putString("email",email.getText().toString()).apply();
-        sp.edit().putString("password",password.getText().toString()).apply();
-    }
-
-    public void saveAlert(){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setMessage("Do you want to save email and password?")
-                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        saveEmailAndPassword();
-                        gotoChatActivity();
-                    }
-                })
-                .setNeutralButton("not now", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        sp.edit().putString("code","notNow").apply();
-                        gotoChatActivity();
-                    }
-                })
-                .setNegativeButton("never", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        sp.edit().putString("code","never").apply();
-                        gotoChatActivity();
-                    }
-                });
-        alert.show();
     }
 
     public void gotoChatActivity(){

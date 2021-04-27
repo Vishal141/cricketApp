@@ -23,10 +23,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class chatWithFriend extends AppCompatActivity {
 
@@ -35,7 +38,10 @@ public class chatWithFriend extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference dref;
 
-    private String email,name,currentUserEmail;
+    private CircleImageView profile_image;
+    private TextView profile_name;
+
+    private String email,name,currentUserEmail,imageUrl;
 
     EditText msg;
     LinearLayout msgView;
@@ -49,7 +55,14 @@ public class chatWithFriend extends AppCompatActivity {
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         name = intent.getStringExtra("name");
-        setTitle(name);
+        imageUrl = intent.getStringExtra("imageUrl");
+
+        profile_image = findViewById(R.id.chatImage);
+        profile_name = findViewById(R.id.name);
+
+        profile_name.setText(name);
+        Picasso.with(getApplicationContext()).load(imageUrl).into(profile_image);
+
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
@@ -71,6 +84,9 @@ public class chatWithFriend extends AppCompatActivity {
                 child(time).child("send").setValue(message);
         dref.child(register.getMd5(email)).child(register.getMd5(currentUserEmail)).
                 child(time).child("receive").setValue(message);
+
+        msg.setText("");
+        msg.clearFocus();
     }
 
     public View getTextView(String message,String type){

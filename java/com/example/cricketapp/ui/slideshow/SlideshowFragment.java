@@ -54,7 +54,7 @@ public class SlideshowFragment extends Fragment {
     public static DatabaseReference dref;
 
     private ArrayList<String> names,emails,imageUrls,newNames,newEmails,newImageUrls;
-    private Set<Integer> indexes;
+    private Set<Integer> indices;
 
     public static String currentUserEmail,currentUserName="unknown",currentUserImageUrl="";
 
@@ -62,9 +62,6 @@ public class SlideshowFragment extends Fragment {
     CustomAdapter adapter;
 
     EditText search_item;
-    ImageView imageView;
-
-    LayoutInflater li;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -78,12 +75,6 @@ public class SlideshowFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
        // final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                //textView.setText(s);
-            }
-        });
 
         names = new ArrayList<String>();
         emails = new ArrayList<String>();
@@ -91,11 +82,10 @@ public class SlideshowFragment extends Fragment {
         newNames = new ArrayList<String>();
         newEmails = new ArrayList<String>();
         newImageUrls = new ArrayList<String>();
-        indexes = new HashSet<Integer>();
+        indices = new HashSet<Integer>();
 
         list = root.findViewById(R.id.myList);
         search_item = root.findViewById(R.id.search_item);
-        imageView = root.findViewById(R.id.search_btn);
 
         adapter = new CustomAdapter(getActivity(),names,emails,imageUrls);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -103,8 +93,42 @@ public class SlideshowFragment extends Fragment {
 
         currentUserEmail = user.getEmail();
 
-        setListenerToImage();
-        //setListenerToList();
+        search_item.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence item, int start, int before, int count) {
+                //System.out.println(item);
+                newImageUrls.clear();
+                newEmails.clear();
+                newNames.clear();
+                indices.clear();
+                for (String s:names){
+                    if (s.contains(item.toString()))
+                        indices.add(names.indexOf(s));
+                }
+                for (String s:emails){
+                    if (s.contains(item.toString()))
+                        indices.add(emails.indexOf(s));
+                }
+                for (int i:indices){
+                    newNames.add(names.get(i));
+                    newEmails.add(emails.get(i));
+                    newImageUrls.add(imageUrls.get(i));
+                }
+                adapter = new CustomAdapter(getActivity(),newNames,newEmails,newImageUrls);
+                list.setAdapter(adapter);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         getUserList();
 
         getActivity().setTheme(R.style.AppTheme_NoActionBar);
@@ -141,97 +165,4 @@ public class SlideshowFragment extends Fragment {
         });
 
     }
-
-    public void setListenerToImage(){
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                newImageUrls.clear();
-                newEmails.clear();
-                newNames.clear();
-                String item = search_item.getText().toString();
-                for (String s:names){
-                    if (s.contains(item))
-                        indexes.add(names.indexOf(s));
-                }
-                for (String s:emails){
-                    if (s.contains(item))
-                        indexes.add(emails.indexOf(s));
-                }
-                for (int i:indexes){
-                    newNames.add(names.get(i));
-                    newEmails.add(emails.get(i));
-                    newImageUrls.add(imageUrls.get(i));
-                }
-                adapter = new CustomAdapter(getActivity(),newNames,newEmails,newImageUrls);
-                list.setAdapter(adapter);
-            }
-        });
-    }
-//
-//    public void changeActionBar(){
-//       final ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-//       actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-//       actionBar.setDisplayShowCustomEnabled(true);
-//       actionBar.setTitle("Add Friend");
-//
-//       getActivity().setTitle("Add Friend");
-//
-//       final View view = LayoutInflater.from(getContext()).inflate(R.layout.add_friend_app_bar,null);
-//
-//        final EditText search = (EditText)view.findViewById(R.id.search_item);
-//        search.setText("a");
-//        search.setVisibility(View.INVISIBLE);
-//
-//        ((Button)view.findViewById(R.id.search)).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getActivity().setTitle("");
-//                search.setVisibility(View.VISIBLE);
-//            }
-//        });
-//
-//        search.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                Toast.makeText(getContext(),"before",Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence item, int start, int before, int count) {
-//                Toast.makeText(getContext(),item.toString(),Toast.LENGTH_LONG).show();
-//               if(item.length()>0){
-//                   setSearchList(item.toString());
-//               }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//            }
-//        });
-//
-//       actionBar.setCustomView(view);
-//       actionBar.setElevation(0);
-//    }
-//
-//    public void setSearchList(String item){
-//        newImageUrls.clear();
-//        newEmails.clear();
-//        newNames.clear();
-//        for (String s:names){
-//            if (s.contains(item))
-//                indexes.add(names.indexOf(s));
-//        }
-//        for (String s:emails){
-//            if (s.contains(item))
-//                indexes.add(emails.indexOf(s));
-//        }
-//        for (int i:indexes){
-//            newNames.add(names.get(i));
-//            newEmails.add(emails.get(i));
-//            newImageUrls.add(imageUrls.get(i));
-//        }
-//        adapter = new CustomAdapter(getActivity(),newNames,newEmails,newImageUrls);
-//        list.setAdapter(adapter);
-//    }
 }

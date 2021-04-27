@@ -57,12 +57,6 @@ public class HomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
        // final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-            //    textView.setText(s);
-            }
-        });
 
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -90,6 +84,7 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds:snapshot.getChildren()){
                     HashMap<String,String> map = (HashMap<String, String>) ds.getValue();
+                    System.out.println(map);
                     emails.add(map.get("email"));
                     names.add(map.get("name"));
                     imageUrls.add(map.get("imageUrl"));

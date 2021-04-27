@@ -21,6 +21,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder>{
 
     private ArrayList<String> names,emails,imageUrls;
@@ -41,10 +43,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomAdapter.ViewHolder holder, int position) {
-        Picasso.with(context).load(imageUrls.get(position)).into(holder.getImageView());
-        holder.getName().setText(names.get(position));
-        holder.getEmail().setText(emails.get(position));
+    public void onBindViewHolder(@NonNull CustomAdapter.ViewHolder holder, final int position) {
+        holder.name.setText(names.get(position));
+        holder.email.setText(emails.get(position));
+        Picasso.with(context).load(imageUrls.get(position)).into(holder.imageView);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, chatWithFriend.class);
+                intent.putExtra("email",emails.get(position));
+                intent.putExtra("name",names.get(position));
+                intent.putExtra("imageUrl",imageUrls.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -53,38 +66,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView imageView;
+        private CircleImageView imageView;
         private TextView name,email;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
 
             imageView = itemView.findViewById(R.id.profile_picture);
             name = itemView.findViewById(R.id.name);
             email = itemView.findViewById(R.id.email);
-        }
-
-        public ImageView getImageView(){
-            return this.imageView;
-        }
-        public TextView getName(){
-            return this.name;
-        }
-        public TextView getEmail(){
-            return this.email;
-        }
-
-        @Override
-        public void onClick(View v) {
-            TextView em = v.findViewById(R.id.email);
-            TextView n = v.findViewById(R.id.name);
-            Intent intent = new Intent(context, chatWithFriend.class);
-            intent.putExtra("email",em.getText().toString());
-            intent.putExtra("name",n.getText().toString());
-            context.startActivity(intent);
         }
     }
 }

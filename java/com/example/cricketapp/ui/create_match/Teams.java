@@ -40,9 +40,6 @@ public class Teams extends AppCompatActivity {
 
     private InputStream is;
     private AssetManager asset;
-//    private POIFSFileSystem poifsFileSystem;
-//    private HSSFWorkbook workbook;
-//    private HSSFSheet sheet;
 
     public static boolean fromMake=true;
     private Context context = this;
@@ -54,13 +51,15 @@ public class Teams extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teams);
 
+        setTitle("Both Teams");
+
         TextView matchName = (TextView)findViewById(R.id.matchName);
         TextView team1 = (TextView)findViewById(R.id.team1);
         TextView team2 = (TextView)findViewById(R.id.team2);
 
         RadioButton button1 = (RadioButton)findViewById(R.id.tButton_1);
         RadioButton button2 = (RadioButton)findViewById(R.id.tButton_2);
-        Button button = (Button)findViewById(R.id.back);
+       // Button button = (Button)findViewById(R.id.back);
 
         matchName.setText(MakeTeam.matchName);
         team1.setText(MakeTeam.team_1_Name);
@@ -85,11 +84,11 @@ public class Teams extends AppCompatActivity {
         if (!from.equals("makeTeam")){
             button1.setVisibility(View.INVISIBLE);
             button2.setVisibility(View.INVISIBLE);
-            button.setVisibility(View.VISIBLE);
+            //button.setVisibility(View.VISIBLE);
         }else{
             button1.setVisibility(View.VISIBLE);
             button2.setVisibility(View.VISIBLE);
-            button.setVisibility(View.INVISIBLE);
+           // button.setVisibility(View.INVISIBLE);
         }
 
 
@@ -136,30 +135,8 @@ public class Teams extends AppCompatActivity {
             Global.currentBowl=1;
             Global.currentBat = 2;
         }
-//        Global.Sheet = initSheet();
-//        System.out.println(Global.Sheet);
-//        System.out.println(Global.Sheet.getLastRowNum());
         startActivity(intent);
+        finish();
     }
 
-    public void back(View view){
-        Intent intent = new Intent(context,context1.getClass());
-        startActivity(intent);
-    }
-
-//    public HSSFSheet initSheet(){
-//        asset = getAssets();
-//        try {
-//            is = asset.open("score.xls");
-//            poifsFileSystem = new POIFSFileSystem(is);
-//            workbook = new HSSFWorkbook(poifsFileSystem);
-//            sheet = workbook.getSheetAt(0);
-//            for (Row row:sheet){
-//                sheet.removeRow(row);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return sheet;
-//    }
 }

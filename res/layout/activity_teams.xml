@@ -9,16 +9,15 @@
 
     <TextView
         android:id="@+id/matchName"
-        android:layout_width="283dp"
-        android:layout_height="44dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="31dp"
         android:gravity="center"
         android:text="Match Name"
-        android:textColor="#5E35B1"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/back"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -63,15 +62,14 @@
         android:id="@+id/team2"
         android:layout_width="153dp"
         android:layout_height="34dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="31dp"
-        android:layout_marginRight="31dp"
         android:gravity="center"
         android:text="Team 2"
         android:textColor="#5E35B1"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/matchName" />
 
     <Button
         android:id="@+id/button5"
@@ -80,7 +78,7 @@
         android:layout_marginEnd="18dp"
         android:layout_marginRight="18dp"
         android:layout_marginBottom="55dp"
-        android:background="#3D5AFE"
+        android:background="@drawable/login_btn_bg"
         android:onClick="start"
         android:text="start"
         android:textColor="#FFFFFF"
@@ -125,16 +123,4 @@
             android:textColor="#5E35B1"
             android:text="Team 2" />
     </RadioGroup>
-
-    <Button
-        android:id="@+id/back"
-        android:layout_width="69dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/ic_baseline_arrow_back_24"
-        android:onClick="back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

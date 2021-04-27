@@ -70,47 +70,32 @@
                 android:textColor="#0DCA78"
                 android:textSize="14dp" />
 
-            <androidx.cardview.widget.CardView
+            <Button
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="25dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:layout_marginRight="25dp"
-                android:background="#462393"
-                app:cardCornerRadius="30dp">
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="18dp"
-                    android:onClick="signIn"
-                    android:text="Sign In"
-                    android:background="#4807D8"
-                    android:textColor="#fff"
-                    />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
                 android:layout_marginLeft="25dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginRight="25dp"
-                android:background="#462393"
-                app:cardCornerRadius="30dp">
+                android:textSize="18dp"
+                android:onClick="signIn"
+                android:text="Sign In"
+                android:background="@drawable/login_btn_bg"
+                android:textColor="#fff"
+                />
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="18dp"
-                    android:onClick="signUp"
-                    android:text="Sign up"
-                    android:background="#4807D8"
-                    android:textColor="#fff"
-                    />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:textSize="18dp"
+                android:onClick="signIn"
+                android:text="Sign Up"
+                android:background="@drawable/login_btn_bg"
+                android:textColor="#fff"
+                />
 
-            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 

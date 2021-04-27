@@ -14,23 +14,24 @@
         android:theme="@style/AppTheme"
         android:screenOrientation="portrait"
         >
-        <activity android:name=".ui.gallery.post"></activity>
-        <activity android:name=".ui.matchHistory.Scoreboard" />
-        <activity android:name=".ui.create_match.ScoreBoard" />
-        <activity android:name=".ui.create_match.MatchActivity" />
-        <activity android:name=".ui.create_match.Select" />
-        <activity android:name=".ui.create_match.Teams" />
-        <activity android:name=".ui.create_match.MakeTeam" />
-        <activity android:name=".chatWithFriend" />
-        <activity android:name=".profile" />
-        <activity android:name=".register" />
+        <activity android:name=".ui.gallery.post" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.matchHistory.Scoreboard" android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.create_match.ScoreBoard" android:screenOrientation="portrait" />
+        <activity android:name=".ui.create_match.MatchActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.create_match.Select" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.create_match.Teams" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.create_match.MakeTeam" android:screenOrientation="portrait"/>
+        <activity android:name=".chatWithFriend" android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".profile" android:screenOrientation="portrait"/>
+        <activity android:name=".register" android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".chatActivity"
             android:label="@string/title_activity_chat"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             />
-        <activity android:name=".login" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".login" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

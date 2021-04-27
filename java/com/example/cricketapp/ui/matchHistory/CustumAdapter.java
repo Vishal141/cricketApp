@@ -83,13 +83,13 @@ public class CustumAdapter extends RecyclerView.Adapter<CustumAdapter.ViewHolder
                     holder.bl1.setText(map.get("current bowl 1"));
                 }else
                 {
-                    holder.bt1.setVisibility(View.INVISIBLE);
-                    holder.bt2.setVisibility(View.INVISIBLE);
-                    holder.bl1.setVisibility(View.INVISIBLE);
-                    holder.bowling.setVisibility(View.INVISIBLE);
-                    holder.batting.setVisibility(View.INVISIBLE);
+                    holder.bt1.setVisibility(View.GONE);
+                    holder.bt2.setVisibility(View.GONE);
+                    holder.bl1.setVisibility(View.GONE);
+                    holder.bowling.setVisibility(View.GONE);
+                    holder.batting.setVisibility(View.GONE);
                 }
-                holder.bl2.setVisibility(View.INVISIBLE);
+                holder.bl2.setVisibility(View.GONE);
                 holder.result.setText(map.get("status"));
                 holder.url = map.get("scoreboard");
                 holder.commentUrl = map.get("CommentUrl");

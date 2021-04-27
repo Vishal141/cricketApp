@@ -16,10 +16,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="330dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="10dp"
             >
 
             <EditText
@@ -30,20 +30,13 @@
 
         </androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/search_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:src="@drawable/ic_action_name" />
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myList"
         android:layout_width="409dp"
         android:layout_height="729dp"
-        android:layout_marginTop="8dp"
+        android:layout_margin="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

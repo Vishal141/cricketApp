@@ -64,6 +64,8 @@ public class MakeTeam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_team2);
 
+        setTitle("Add Players to Team");
+
         if (isCreateClicked)
         {
             isCreateClicked = false;
@@ -228,15 +230,11 @@ public class MakeTeam extends AppCompatActivity {
             if (playerCount_1<3)
             {
                 AlertDialog.Builder dialog1 = new AlertDialog.Builder(this);
-                dialog1.setMessage("A team must have 3 players.");
+                dialog1.setMessage("A team must have more than 2 players.");
                 dialog1.setTitle("Warning");
                 dialog1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                            team_code=2;
-//                            //player_1_Maping.get(team_1_players.get(0)).add("Captain");
-//                            Intent i = new Intent(context,MakeTeam.class);
-//                            startActivity(i);
                     }
                 });
                 dialog1.show();
@@ -246,6 +244,7 @@ public class MakeTeam extends AppCompatActivity {
                 team_code=2;
                 Intent i = new Intent(this,MakeTeam.class);
                 startActivity(i);
+                finish();
             }
         }
         else {
@@ -276,6 +275,7 @@ public class MakeTeam extends AppCompatActivity {
                 Global.team_2_players= team_2_players;
                 Global.matchName = matchName;
                 startActivity(i);
+                finish();
             }
         }
     }
